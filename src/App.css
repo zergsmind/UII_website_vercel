@@ -1,0 +1,53 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 40px 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+header p {
+  margin: 0;
+  color: #666;
+  font-size: 18px;
+}
+
+main {
+  flex: 1;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h2 {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #666;
+}
+
+footer {
+  border-top: 1px solid #e0e0e0;
+  padding: 20px 0;
+  text-align: center;
+  color: #999;
+  margin-top: 40px;
+}
