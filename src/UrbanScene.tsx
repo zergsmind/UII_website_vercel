@@ -134,46 +134,48 @@ export function UrbanScene() {
       shapes.push(mesh)
     }
 
-    // Create particles
+    // Create particles with Perlin-like noise animation
     const particleCount = 250
     const particleGeometry = new THREE.BufferGeometry()
     const positions = new Float32Array(particleCount * 3)
-    const sizes = new Float32Array(particleCount)
+    const initialPositions = new Float32Array(particleCount * 3)
+    const particleSizes = new Array(particleCount)
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 10
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 6
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 5
+      const x = (Math.random() - 0.5) * 10
+      const y = (Math.random() - 0.5) * 6
+      const z = (Math.random() - 0.5) * 5
+
+      positions[i * 3] = x
+      positions[i * 3 + 1] = y
+      positions[i * 3 + 2] = z
+
+      initialPositions[i * 3] = x
+      initialPositions[i * 3 + 1] = y
+      initialPositions[i * 3 + 2] = z
 
       // Random sizes between 0.125 and 0.25
-      sizes[i] = Math.random() * 0.125 + 0.125
+      particleSizes[i] = Math.random() * 0.125 + 0.125
     }
 
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    particleGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
     const particleMaterial = new THREE.PointsMaterial({
       color: 0xe8a66f,  // Accent warm peach from 60/30/10 scheme
-      size: 1,
+      size: 0.25,
       sizeAttenuation: true,
       transparent: true,
       opacity: 0.8,
     })
 
-    // Use custom shader to apply per-vertex sizes
-    particleMaterial.onBeforeCompile = (shader) => {
-      shader.vertexShader = `
-        attribute float size;
-        ${shader.vertexShader}
-      `.replace(
-        'gl_PointSize = size;',
-        'gl_PointSize = size;'
-      )
-    }
-
     const particles = new THREE.Points(particleGeometry, particleMaterial)
     scene.add(particles)
     particlesRef.current = particles
+
+    // Store data for animation
+    particles.userData.initialPositions = initialPositions
+    particles.userData.particleSizes = particleSizes
+    particles.userData.time = 0
 
     // Mouse tracking
     const onMouseMove = (event: MouseEvent) => {
@@ -213,7 +215,29 @@ export function UrbanScene() {
       camera.position.x = mouseRef.current.x * 2
       camera.position.y = mouseRef.current.y * 1.5
 
-      // Particles are static - no animation
+      // Animate particles with Perlin-like noise
+      if (particles) {
+        const positions = particleGeometry.attributes.position.array as Float32Array
+        const initialPositions = particles.userData.initialPositions as Float32Array
+
+        particles.userData.time += 0.005 // Slow animation
+        const time = particles.userData.time
+
+        for (let i = 0; i < particleCount; i++) {
+          const idx = i * 3
+
+          // Perlin-like noise using sine/cosine combinations
+          const noiseX = Math.sin(time + initialPositions[idx] * 0.5) * 0.3 + Math.cos(time * 0.7 + initialPositions[idx + 1] * 0.3) * 0.2
+          const noiseY = Math.cos(time + initialPositions[idx + 1] * 0.5) * 0.3 + Math.sin(time * 0.7 + initialPositions[idx + 2] * 0.3) * 0.2
+          const noiseZ = Math.sin(time * 0.8 + initialPositions[idx + 2] * 0.5) * 0.2 + Math.cos(time * 0.6 + initialPositions[idx] * 0.3) * 0.15
+
+          positions[idx] = initialPositions[idx] + noiseX
+          positions[idx + 1] = initialPositions[idx + 1] + noiseY
+          positions[idx + 2] = initialPositions[idx + 2] + noiseZ
+        }
+
+        particleGeometry.attributes.position.needsUpdate = true
+      }
 
       renderer.render(scene, camera)
     }
