@@ -38,13 +38,18 @@ export function UrbanScene() {
     containerRef.current.appendChild(renderer.domElement)
     rendererRef.current = renderer
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
+    // Lighting - enhanced for green palette
+    const ambientLight = new THREE.AmbientLight(0xf0f8f4, 0.7)  // Green-tinted ambient light
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
+    const directionalLight = new THREE.DirectionalLight(0xf0f8f4, 0.9)
     directionalLight.position.set(5, 10, 7)
     scene.add(directionalLight)
+
+    // Add greenish point light for depth
+    const pointLight = new THREE.PointLight(0x8ba89f, 0.5)
+    pointLight.position.set(-3, 2, 3)
+    scene.add(pointLight)
 
     // Create urban geometric shapes - 60/30/10 color scheme (Green palette)
     // 60% Dominant: Light green-tinted white, 30% Secondary: Sage/green, 10% Accent: Warm peach
@@ -69,10 +74,13 @@ export function UrbanScene() {
       const depth = Math.random() * 0.8 + 0.3
 
       const geometry = new THREE.BoxGeometry(width, height, depth)
+      const colorIdx = i % colors.length
       const material = new THREE.MeshStandardMaterial({
-        color: colors[i % colors.length],
+        color: colors[colorIdx],
         metalness: 0.4,
         roughness: 0.6,
+        emissive: colors[colorIdx],
+        emissiveIntensity: colorIdx === colors.length - 1 ? 0.15 : 0.05,  // Slightly emit accent color
       })
 
       const mesh = new THREE.Mesh(geometry, material)
@@ -198,12 +206,38 @@ export function UrbanScene() {
       camera.position.x = mouseRef.current.x * 2
       camera.position.y = mouseRef.current.y * 1.5
 
-      // Animate particles with damping for smooth motion
+      // Animate particles with damping and mouse cursor attraction
       if (particles) {
         const positions = particleGeometry.attributes.position.array as Float32Array
         const velocities = particles.userData.velocities as Float32Array
 
+        // Mouse attraction parameters
+        const MOUSE_ATTRACTION_STRENGTH = 0.0008
+        const MOUSE_REPEL_DISTANCE = 0.5
+
         for (let i = 0; i < positions.length; i += 3) {
+          const particleX = positions[i]
+          const particleY = positions[i + 1]
+          const particleZ = positions[i + 2]
+
+          // Calculate attraction to mouse cursor (mapped to 3D space)
+          const targetX = mouseRef.current.x * 3
+          const targetY = mouseRef.current.y * 2
+          const targetZ = 0
+
+          // Distance to mouse position
+          const dx = targetX - particleX
+          const dy = targetY - particleY
+          const dz = targetZ - particleZ
+          const distance = Math.sqrt(dx * dx + dy * dy + dz * dz)
+
+          // Slow attraction towards mouse cursor with soft easing
+          if (distance > 0.1) {
+            velocities[i] += (dx / distance) * MOUSE_ATTRACTION_STRENGTH
+            velocities[i + 1] += (dy / distance) * MOUSE_ATTRACTION_STRENGTH
+            velocities[i + 2] += (dz / distance) * MOUSE_ATTRACTION_STRENGTH * 0.5
+          }
+
           // Apply damping to velocities for organic deceleration
           velocities[i] *= DAMPING
           velocities[i + 1] *= DAMPING
@@ -215,7 +249,7 @@ export function UrbanScene() {
 
           // Bounce particles off boundaries with dampening
           if (Math.abs(positions[i]) > 5) {
-            velocities[i] *= -0.9 // Energy loss on bounce
+            velocities[i] *= -0.9
           }
           if (Math.abs(positions[i + 1]) > 3) {
             velocities[i + 1] *= -0.9
