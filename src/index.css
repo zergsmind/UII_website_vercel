@@ -7,35 +7,51 @@
 }
 
 :root {
-  /* Muted Color Palette - Gradient Heavy */
-  --sage-light: #D4DFD0;
-  --sage-muted: #B8C5B0;
-  --sage-dark: #8B9985;
+  /* 60/30/10 Color System */
+  /* 60% - Dominant: Light blue-tinted white (base for all backgrounds) */
+  --color-dominant: #F5F8FC;
+  --color-dominant-warm: #FBF7F5;
+  --color-dominant-cool: #F3F8FC;
 
-  --lavender-light: #E8D9F0;
-  --lavender-muted: #D4C9E8;
-  --lavender-dark: #C4B0D9;
+  /* 30% - Secondary: Muted teal/blue */
+  --color-secondary: #5B8A9E;
+  --color-secondary-light: #7BA3B8;
+  --color-secondary-muted: #4A7A8E;
 
-  --peach-light: #FFF0E6;
-  --peach-muted: #F5D9C9;
-  --peach-dark: #E8C4B0;
+  /* 10% - Accent: Warm coral/amber */
+  --color-accent: #E8956F;
+  --color-accent-light: #F0A878;
+  --color-accent-dark: #D97C52;
 
-  --blue-light: #D9E8F5;
-  --blue-muted: #C9D9E8;
-  --blue-dark: #B0C4D9;
+  /* Legacy aliases for compatibility */
+  --sage-light: #F5F8FC;
+  --sage-muted: #7BA3B8;
+  --sage-dark: #5B8A9E;
 
-  --gold-muted: #D4B896;
-  --rose-muted: #D9B5C4;
+  --lavender-light: #F3F8FC;
+  --lavender-muted: #7BA3B8;
+  --lavender-dark: #5B8A9E;
+
+  --peach-light: #FBF7F5;
+  --peach-muted: #E8956F;
+  --peach-dark: #D97C52;
+
+  --blue-light: #F5F8FC;
+  --blue-muted: #7BA3B8;
+  --blue-dark: #5B8A9E;
+
+  --gold-muted: #E8956F;
+  --rose-muted: #E8956F;
 
   /* Text Colors */
-  --text-dark: #3A3A38;
-  --text-mid: #6A6A68;
-  --text-light: #A0A09E;
+  --text-dark: #2C3E4A;
+  --text-mid: #556B7A;
+  --text-light: #8A9BA8;
 
   /* Background */
-  --bg-primary: #FAFAF8;
-  --bg-secondary: #F5F3F0;
-  --bg-tertiary: #EFF0ED;
+  --bg-primary: #F5F8FC;
+  --bg-secondary: #F3F6FA;
+  --bg-tertiary: #EDF2F8;
 
   /* Spacing */
   --padding-sm: 12px;

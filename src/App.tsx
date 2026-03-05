@@ -64,7 +64,7 @@ function App() {
         </section>
 
         {/* About section */}
-        <section className="content-card" data-card="about">
+        <section className="content-card" data-card="about" style={{ '--parallax-offset': `${scrollProgress * 20}px` } as React.CSSProperties}>
           <div className="card-content">
             <div className="card-header">
               <span className="card-number">01</span>
@@ -78,7 +78,7 @@ function App() {
         </section>
 
         {/* Services section */}
-        <section className="content-card" data-card="services">
+        <section className="content-card" data-card="services" style={{ '--parallax-offset': `${scrollProgress * 15}px` } as React.CSSProperties}>
           <div className="card-content">
             <div className="card-header">
               <span className="card-number">02</span>
@@ -102,7 +102,7 @@ function App() {
         </section>
 
         {/* Stats section */}
-        <section className="content-card" data-card="stats">
+        <section className="content-card" data-card="stats" style={{ '--parallax-offset': `${scrollProgress * 10}px` } as React.CSSProperties}>
           <div className="card-content">
             <div className="card-header">
               <span className="card-number">03</span>
@@ -130,7 +130,7 @@ function App() {
         </section>
 
         {/* CTA section */}
-        <section className="content-card cta-card" data-card="cta">
+        <section className="content-card cta-card" data-card="cta" style={{ '--parallax-offset': `${scrollProgress * 5}px` } as React.CSSProperties}>
           <div className="card-content">
             <h2>{t.readyToTransform}</h2>
             <p>{t.ctaSubtitle}</p>
