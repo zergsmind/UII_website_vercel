@@ -217,8 +217,11 @@ p {
 
 /* ========== CARD LARGE (About) ========== */
 .card-large {
-  padding: var(--padding-2xl);
-  background: linear-gradient(135deg, rgba(212, 223, 208, 0.5) 0%, rgba(232, 217, 240, 0.3) 100%);
+  padding: var(--padding-lg);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpReveal 0.6s ease-out forwards;
 }
 
 .card-header {
@@ -246,8 +249,9 @@ p {
 
 .card-quote p {
   font-style: italic;
-  color: var(--text-dark);
+  color: var(--text-mid);
   font-weight: 500;
+  margin: 0;
 }
 
 /* ========== SECTION CONTAINER ========== */

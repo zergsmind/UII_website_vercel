@@ -68,18 +68,20 @@ function App() {
       <div className="content-wrapper">
         {/* What We Are */}
         <section className="content-section">
-          <div
-            className={`card card-large ${visibleCards.has('about') ? 'visible' : ''}`}
-            data-card="about"
-            style={{ '--card-delay': '0ms' } as React.CSSProperties}
-          >
-            <div className="card-header">
-              <span className="card-number">01</span>
-              <h2>{t.whatWeAre}</h2>
-            </div>
-            <p>{t.aboutParagraph}</p>
-            <div className="card-quote">
-              <p>"{t.doctrine}"</p>
+          <div className="section-header">
+            <span className="section-number">01</span>
+            <h2 className="section-title">{t.whatWeAre}</h2>
+          </div>
+          <div className="section-container">
+            <div
+              className={`card card-large ${visibleCards.has('about') ? 'visible' : ''}`}
+              data-card="about"
+              style={{ '--card-delay': '0ms' } as React.CSSProperties}
+            >
+              <p>{t.aboutParagraph}</p>
+              <div className="card-quote">
+                <p>"{t.doctrine}"</p>
+              </div>
             </div>
           </div>
         </section>
