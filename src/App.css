@@ -27,13 +27,60 @@
   transition: width 0.1s linear;
 }
 
+/* ========== HEADER ========== */
+.header {
+  position: fixed;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  padding: var(--padding-md);
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  background: rgba(245, 251, 247, 0.5);
+  border-bottom: 1px solid rgba(107, 142, 127, 0.1);
+}
+
+.header-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--padding-md);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-md);
+  flex-shrink: 0;
+}
+
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  color: var(--text-dark);
+}
+
+.header-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
 /* ========== CARDS CONTAINER ========== */
 .cards-container {
   position: relative;
   z-index: 1;
   max-width: 1000px;
   margin: 0 auto;
-  padding: var(--padding-xl) var(--padding-md);
+  padding: calc(80px + var(--padding-xl)) var(--padding-md) var(--padding-xl) var(--padding-md);
 }
 
 /* ========== CARD BASE STYLES ========== */
@@ -90,7 +137,7 @@
 
 /* ========== HERO CARD ========== */
 .hero-card {
-  min-height: 60vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -180,14 +227,14 @@
 /* ========== SERVICES GRID ========== */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--padding-lg);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--padding-md);
   margin-top: var(--padding-lg);
 }
 
 .service-item {
   background: linear-gradient(135deg, var(--color-dominant) 0%, var(--color-secondary-light) 100%);
-  padding: var(--padding-lg);
+  padding: var(--padding-md);
   border-radius: 16px;
   transition: all 0.3s ease;
   border: 1px solid rgba(91, 138, 158, 0.1);
@@ -214,14 +261,14 @@
 /* ========== STATS GRID ========== */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--padding-lg);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--padding-md);
   margin-top: var(--padding-lg);
 }
 
 .stat-item {
   background: linear-gradient(135deg, var(--color-dominant-cool) 0%, var(--color-secondary-light) 100%);
-  padding: var(--padding-lg);
+  padding: var(--padding-md);
   border-radius: 16px;
   text-align: center;
   transition: all 0.3s ease;
@@ -235,7 +282,7 @@
 
 .stat-number {
   font-family: 'DM Sans', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
   -webkit-background-clip: text;
@@ -357,8 +404,24 @@ p {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
+  .header {
+    padding: var(--padding-sm);
+  }
+
+  .logo-section {
+    gap: var(--padding-sm);
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .header-title {
+    font-size: 0.9rem;
+  }
+
   .cards-container {
-    padding: var(--padding-lg) var(--padding-md);
+    padding: calc(80px + var(--padding-lg)) var(--padding-md) var(--padding-lg) var(--padding-md);
   }
 
   .content-card,
@@ -390,6 +453,15 @@ p {
   .stats-grid {
     grid-template-columns: 1fr;
     gap: var(--padding-md);
+  }
+
+  .service-item,
+  .stat-item {
+    padding: var(--padding-md);
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
   }
 
   .btn-group {

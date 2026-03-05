@@ -136,7 +136,7 @@ export function UrbanScene() {
     }
 
     // Create particles with damping
-    const particleCount = 200
+    const particleCount = 250
     const particleGeometry = new THREE.BufferGeometry()
     const positions = new Float32Array(particleCount * 3)
     const velocities = new Float32Array(particleCount * 3)
@@ -157,10 +157,10 @@ export function UrbanScene() {
 
     const particleMaterial = new THREE.PointsMaterial({
       color: 0xe8a66f,  // Accent warm peach from 60/30/10 scheme
-      size: 0.1,
+      size: 0.25,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.8,
     })
 
     const particles = new THREE.Points(particleGeometry, particleMaterial)

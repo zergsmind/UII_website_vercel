@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import { UrbanScene } from './UrbanScene'
-import { LanguagePicker } from './LanguagePicker'
+import { Header } from './Header'
 import { useLanguage } from './LanguageContext'
 import { translations } from './translations'
 
@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <LanguagePicker />
+      <Header />
 
       {/* Scroll progress bar */}
       <div className="scroll-bar" style={{ width: `${scrollProgress * 100}%` }}></div>
@@ -58,9 +58,6 @@ function App() {
             {language === 'ro' ? 'Unde sistemele urbane devin actiune' : t.heroTitle}
           </h1>
           <p className="hero-subtitle">{t.heroSubtitle}</p>
-          <button className="btn btn-primary">
-            {language === 'ro' ? 'Descopera' : 'Discover'}
-          </button>
         </section>
 
         {/* About section */}
