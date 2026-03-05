@@ -9,7 +9,6 @@ export function UrbanScene() {
   const shapesRef = useRef<THREE.Mesh[]>([])
   const particlesRef = useRef<THREE.Points | null>(null)
   const mouseRef = useRef({ x: 0, y: 0 })
-  const scrollRef = useRef({ position: 0, velocity: 0, lastPosition: 0 })
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -135,40 +134,46 @@ export function UrbanScene() {
       shapes.push(mesh)
     }
 
-    // Create particles with damping
+    // Create particles
     const particleCount = 250
     const particleGeometry = new THREE.BufferGeometry()
     const positions = new Float32Array(particleCount * 3)
-    const velocities = new Float32Array(particleCount * 3)
-    const PARTICLE_SLOWDOWN = 0.4 * 1.1 // 60% slower + 10% faster = 50% slower overall
-    const DAMPING = 0.98 // Smooth damping factor for organic motion
+    const sizes = new Float32Array(particleCount)
 
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 10
-      positions[i + 1] = (Math.random() - 0.5) * 6
-      positions[i + 2] = (Math.random() - 0.5) * 5
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 10
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 6
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 5
 
-      velocities[i] = (Math.random() - 0.5) * 0.02 * PARTICLE_SLOWDOWN
-      velocities[i + 1] = (Math.random() - 0.5) * 0.02 * PARTICLE_SLOWDOWN
-      velocities[i + 2] = (Math.random() - 0.5) * 0.02 * PARTICLE_SLOWDOWN
+      // Random sizes between 0.125 and 0.25
+      sizes[i] = Math.random() * 0.125 + 0.125
     }
 
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    particleGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
     const particleMaterial = new THREE.PointsMaterial({
       color: 0xe8a66f,  // Accent warm peach from 60/30/10 scheme
-      size: 0.25,
+      size: 1,
       sizeAttenuation: true,
       transparent: true,
       opacity: 0.8,
     })
 
+    // Use custom shader to apply per-vertex sizes
+    particleMaterial.onBeforeCompile = (shader) => {
+      shader.vertexShader = `
+        attribute float size;
+        ${shader.vertexShader}
+      `.replace(
+        'gl_PointSize = size;',
+        'gl_PointSize = size;'
+      )
+    }
+
     const particles = new THREE.Points(particleGeometry, particleMaterial)
     scene.add(particles)
     particlesRef.current = particles
-
-    // Store velocities for animation
-    particles.userData.velocities = velocities
 
     // Mouse tracking
     const onMouseMove = (event: MouseEvent) => {
@@ -178,14 +183,6 @@ export function UrbanScene() {
 
     window.addEventListener('mousemove', onMouseMove)
 
-    // Scroll tracking for particle interaction
-    const onScroll = () => {
-      scrollRef.current.lastPosition = scrollRef.current.position
-      scrollRef.current.position = window.scrollY
-      scrollRef.current.velocity = scrollRef.current.position - scrollRef.current.lastPosition
-    }
-
-    window.addEventListener('scroll', onScroll)
 
     // Handle window resize
     const onWindowResize = () => {
@@ -216,43 +213,7 @@ export function UrbanScene() {
       camera.position.x = mouseRef.current.x * 2
       camera.position.y = mouseRef.current.y * 1.5
 
-      // Animate particles with damping and scroll interaction
-      if (particles) {
-        const positions = particleGeometry.attributes.position.array as Float32Array
-        const velocities = particles.userData.velocities as Float32Array
-
-        // Scroll influence on particles
-        const scrollInfluence = scrollRef.current.velocity * 0.0001
-
-        for (let i = 0; i < positions.length; i += 3) {
-          // Apply scroll-based velocity influence (creates wave-like effect)
-          velocities[i] += scrollInfluence * (Math.sin(positions[i + 1] * 2) * 0.5)
-          velocities[i + 1] += scrollInfluence * 0.3
-          velocities[i + 2] += scrollInfluence * (Math.cos(positions[i] * 2) * 0.5)
-
-          // Apply damping to velocities for organic deceleration
-          velocities[i] *= DAMPING
-          velocities[i + 1] *= DAMPING
-          velocities[i + 2] *= DAMPING
-
-          positions[i] += velocities[i]
-          positions[i + 1] += velocities[i + 1]
-          positions[i + 2] += velocities[i + 2]
-
-          // Bounce particles off boundaries with dampening
-          if (Math.abs(positions[i]) > 5) {
-            velocities[i] *= -0.9 // Energy loss on bounce
-          }
-          if (Math.abs(positions[i + 1]) > 3) {
-            velocities[i + 1] *= -0.9
-          }
-          if (Math.abs(positions[i + 2]) > 2.5) {
-            velocities[i + 2] *= -0.9
-          }
-        }
-
-        particleGeometry.attributes.position.needsUpdate = true
-      }
+      // Particles are static - no animation
 
       renderer.render(scene, camera)
     }
@@ -262,7 +223,6 @@ export function UrbanScene() {
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onWindowResize)
       cancelAnimationFrame(animationId)
 
