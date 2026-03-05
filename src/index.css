@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
 
 * {
   margin: 0;
@@ -7,35 +7,51 @@
 }
 
 :root {
-  /* Colors - UII Visual Identity */
-  --teal: #1B5E5A;
-  --teal-light: #2A7C76;
-  --teal-pale: #E8F4F3;
-  --coral: #D4613A;
-  --coral-light: #F2845F;
-  --coral-pale: #FDF0EB;
-  --offwhite: #F7F4EF;
-  --cream: #F0EDE6;
-  --dark: #1A1A18;
-  --mid: #4A4A48;
-  --light: #9A9A96;
-  --earth: #8B7355;
-  --sage: #7A9E7E;
-  --navy: #1C2B3A;
-  --amber: #C4882A;
+  /* Muted Color Palette - Gradient Heavy */
+  --sage-light: #D4DFD0;
+  --sage-muted: #B8C5B0;
+  --sage-dark: #8B9985;
+
+  --lavender-light: #E8D9F0;
+  --lavender-muted: #D4C9E8;
+  --lavender-dark: #C4B0D9;
+
+  --peach-light: #FFF0E6;
+  --peach-muted: #F5D9C9;
+  --peach-dark: #E8C4B0;
+
+  --blue-light: #D9E8F5;
+  --blue-muted: #C9D9E8;
+  --blue-dark: #B0C4D9;
+
+  --gold-muted: #D4B896;
+  --rose-muted: #D9B5C4;
+
+  /* Text Colors */
+  --text-dark: #3A3A38;
+  --text-mid: #6A6A68;
+  --text-light: #A0A09E;
+
+  /* Background */
+  --bg-primary: #FAFAF8;
+  --bg-secondary: #F5F3F0;
+  --bg-tertiary: #EFF0ED;
 
   /* Spacing */
   --padding-sm: 12px;
   --padding-md: 24px;
   --padding-lg: 48px;
   --padding-xl: 64px;
+  --padding-2xl: 80px;
 
   /* Border Radius */
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
 
   /* Transitions */
-  --transition-default: all 0.3s ease;
+  --transition-default: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: all 0.6s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -46,10 +62,11 @@
   }
 }
 
-@keyframes fadeInUp {
+/* Scroll-triggered animations */
+@keyframes slideUpReveal {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -57,31 +74,32 @@
   }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInScale {
   from {
     opacity: 0;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  50% {
+    background-position: 100% 50%;
   }
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
-  line-height: 1.6;
-  color: var(--dark);
-  background-color: var(--offwhite);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  color: var(--text-dark);
+  background-color: var(--bg-primary);
+  scroll-behavior: smooth;
 }
 
 html, body, #root {
