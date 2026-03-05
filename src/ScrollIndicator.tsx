@@ -25,10 +25,9 @@ export function ScrollIndicator() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.querySelector('.hero')
-      const aboutSection = document.querySelector('.about-section')
-      const servicesSection = document.querySelector('.services-section')
-      const statsSection = document.querySelector('.stats-section')
+      const aboutSection = document.querySelector('.about-section') as HTMLElement
+      const servicesSection = document.querySelector('.services-section') as HTMLElement
+      const statsSection = document.querySelector('.stats-section') as HTMLElement
 
       const scrollPosition = window.scrollY + window.innerHeight / 3
 

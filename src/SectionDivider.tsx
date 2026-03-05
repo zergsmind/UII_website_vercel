@@ -1,4 +1,3 @@
-import React from 'react'
 import './SectionDivider.css'
 
 interface SectionDividerProps {

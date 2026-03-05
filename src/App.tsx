@@ -9,7 +9,6 @@ function App() {
   const { language } = useLanguage()
   const t = translations[language]
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,20 +16,6 @@ function App() {
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = windowHeight > 0 ? window.scrollY / windowHeight : 0
       setScrollProgress(Math.min(progress, 1))
-
-      // Detect visible cards for reveal animation
-      const cardElements = document.querySelectorAll('[data-card]')
-      const newVisible = new Set<string>()
-
-      cardElements.forEach((el) => {
-        const rect = el.getBoundingClientRect()
-        const cardId = el.getAttribute('data-card')
-        if (rect.top < window.innerHeight * 0.75 && cardId) {
-          newVisible.add(cardId)
-        }
-      })
-
-      setVisibleCards(newVisible)
     }
 
     window.addEventListener('scroll', handleScroll)
