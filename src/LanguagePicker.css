@@ -1,0 +1,137 @@
+.language-picker {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(27, 94, 90, 0.15);
+  border-radius: 16px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1b5e5a;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.lang-toggle:hover {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  border-color: rgba(27, 94, 90, 0.3);
+}
+
+.lang-flag {
+  font-size: 16px;
+}
+
+.lang-code {
+  letter-spacing: 0.5px;
+  min-width: 20px;
+}
+
+/* Dropdown Menu */
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(27, 94, 90, 0.15);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 160px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #4a4a48;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.lang-option:hover {
+  background-color: rgba(27, 94, 90, 0.08);
+  border-color: rgba(27, 94, 90, 0.15);
+}
+
+.lang-option.active {
+  background-color: rgba(27, 94, 90, 0.12);
+  color: #1b5e5a;
+  font-weight: 600;
+  border-color: rgba(27, 94, 90, 0.2);
+}
+
+.lang-option .lang-flag {
+  font-size: 18px;
+}
+
+.lang-label {
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .language-picker {
+    top: 12px;
+    right: 12px;
+  }
+
+  .lang-toggle {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .lang-code {
+    display: none;
+  }
+
+  .lang-flag {
+    font-size: 14px;
+  }
+
+  .language-dropdown {
+    min-width: 140px;
+    right: -4px;
+  }
+
+  .lang-option {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .lang-option .lang-flag {
+    font-size: 16px;
+  }
+}
