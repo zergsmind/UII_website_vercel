@@ -9,6 +9,7 @@ export function UrbanScene() {
   const shapesRef = useRef<THREE.Mesh[]>([])
   const particlesRef = useRef<THREE.Points | null>(null)
   const mouseRef = useRef({ x: 0, y: 0 })
+  const scrollRef = useRef({ position: 0, velocity: 0, lastPosition: 0 })
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -177,6 +178,15 @@ export function UrbanScene() {
 
     window.addEventListener('mousemove', onMouseMove)
 
+    // Scroll tracking for particle interaction
+    const onScroll = () => {
+      scrollRef.current.lastPosition = scrollRef.current.position
+      scrollRef.current.position = window.scrollY
+      scrollRef.current.velocity = scrollRef.current.position - scrollRef.current.lastPosition
+    }
+
+    window.addEventListener('scroll', onScroll)
+
     // Handle window resize
     const onWindowResize = () => {
       const width = containerRef.current?.clientWidth || window.innerWidth
@@ -206,37 +216,19 @@ export function UrbanScene() {
       camera.position.x = mouseRef.current.x * 2
       camera.position.y = mouseRef.current.y * 1.5
 
-      // Animate particles with damping and mouse cursor attraction
+      // Animate particles with damping and scroll interaction
       if (particles) {
         const positions = particleGeometry.attributes.position.array as Float32Array
         const velocities = particles.userData.velocities as Float32Array
 
-        // Mouse attraction parameters
-        const MOUSE_ATTRACTION_STRENGTH = 0.0008
-        const MOUSE_REPEL_DISTANCE = 0.5
+        // Scroll influence on particles
+        const scrollInfluence = scrollRef.current.velocity * 0.0001
 
         for (let i = 0; i < positions.length; i += 3) {
-          const particleX = positions[i]
-          const particleY = positions[i + 1]
-          const particleZ = positions[i + 2]
-
-          // Calculate attraction to mouse cursor (mapped to 3D space)
-          const targetX = mouseRef.current.x * 3
-          const targetY = mouseRef.current.y * 2
-          const targetZ = 0
-
-          // Distance to mouse position
-          const dx = targetX - particleX
-          const dy = targetY - particleY
-          const dz = targetZ - particleZ
-          const distance = Math.sqrt(dx * dx + dy * dy + dz * dz)
-
-          // Slow attraction towards mouse cursor with soft easing
-          if (distance > 0.1) {
-            velocities[i] += (dx / distance) * MOUSE_ATTRACTION_STRENGTH
-            velocities[i + 1] += (dy / distance) * MOUSE_ATTRACTION_STRENGTH
-            velocities[i + 2] += (dz / distance) * MOUSE_ATTRACTION_STRENGTH * 0.5
-          }
+          // Apply scroll-based velocity influence (creates wave-like effect)
+          velocities[i] += scrollInfluence * (Math.sin(positions[i + 1] * 2) * 0.5)
+          velocities[i + 1] += scrollInfluence * 0.3
+          velocities[i + 2] += scrollInfluence * (Math.cos(positions[i] * 2) * 0.5)
 
           // Apply damping to velocities for organic deceleration
           velocities[i] *= DAMPING
@@ -249,7 +241,7 @@ export function UrbanScene() {
 
           // Bounce particles off boundaries with dampening
           if (Math.abs(positions[i]) > 5) {
-            velocities[i] *= -0.9
+            velocities[i] *= -0.9 // Energy loss on bounce
           }
           if (Math.abs(positions[i + 1]) > 3) {
             velocities[i + 1] *= -0.9
@@ -270,6 +262,7 @@ export function UrbanScene() {
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onWindowResize)
       cancelAnimationFrame(animationId)
 
