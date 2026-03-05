@@ -13,12 +13,12 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Track scroll progress for parallax
+      // Track scroll progress for scroll bar
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = windowHeight > 0 ? window.scrollY / windowHeight : 0
       setScrollProgress(Math.min(progress, 1))
 
-      // Detect visible cards for scroll reveal
+      // Detect visible cards for reveal animation
       const cardElements = document.querySelectorAll('[data-card]')
       const newVisible = new Set<string>()
 
@@ -34,18 +34,26 @@ function App() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    handleScroll() // Initial call
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <>
+    <div className="app-container">
       <LanguagePicker />
 
-      {/* Hero Section with WebGL & Gradient */}
-      <section className="hero" style={{ '--scroll-y': `${scrollProgress * 30}px` } as React.CSSProperties}>
+      {/* Scroll progress bar */}
+      <div className="scroll-bar" style={{ width: `${scrollProgress * 100}%` }}></div>
+
+      {/* Hero with WebGL background spanning full page */}
+      <div className="page-background">
         <UrbanScene />
-        <div className="hero-content">
+      </div>
+
+      {/* Content cards overlaid on hero background */}
+      <div className="cards-container">
+        {/* Hero title card */}
+        <section className="hero-card">
           <h1 className="hero-title">
             {language === 'ro' ? 'Unde sistemele urbane devin actiune' : t.heroTitle}
           </h1>
@@ -53,68 +61,39 @@ function App() {
           <button className="btn btn-primary">
             {language === 'ro' ? 'Descopera' : 'Discover'}
           </button>
-        </div>
+        </section>
 
-        {/* Gradient overlay shapes */}
-        <div className="hero-shape shape-1"></div>
-        <div className="hero-shape shape-2"></div>
-        <div className="hero-shape shape-3"></div>
-      </section>
-
-      {/* Scroll Progress Indicator */}
-      <div className="scroll-progress" style={{ width: `${scrollProgress * 100}%` }}></div>
-
-      {/* Content Sections - Card Based */}
-      <div className="content-wrapper">
-        {/* What We Are */}
-        <section className="content-section">
-          <div className="section-header">
-            <span className="section-number">01</span>
-            <h2 className="section-title">{t.whatWeAre}</h2>
-          </div>
-          <div className="section-container">
-            <div
-              className={`card card-large ${visibleCards.has('about') ? 'visible' : ''}`}
-              data-card="about"
-              style={{ '--card-delay': '0ms' } as React.CSSProperties}
-            >
-              <p>{t.aboutParagraph}</p>
-              <div className="card-quote">
-                <p>"{t.doctrine}"</p>
-              </div>
+        {/* About section */}
+        <section className="content-card" data-card="about">
+          <div className="card-content">
+            <div className="card-header">
+              <span className="card-number">01</span>
+              <h2 className="card-title">{t.whatWeAre}</h2>
+            </div>
+            <p className="card-text">{t.aboutParagraph}</p>
+            <div className="card-quote">
+              <p>"{t.doctrine}"</p>
             </div>
           </div>
         </section>
 
-        {/* How We Work */}
-        <section className="content-section">
-          <div className="section-header">
-            <span className="section-number">02</span>
-            <h2 className="section-title">{t.howWeWork}</h2>
-          </div>
-          <div className="section-container">
-            <div className="cards-grid">
-              <div
-                className={`card ${visibleCards.has('service-1') ? 'visible' : ''}`}
-                data-card="service-1"
-                style={{ '--card-delay': '0ms' } as React.CSSProperties}
-              >
+        {/* Services section */}
+        <section className="content-card" data-card="services">
+          <div className="card-content">
+            <div className="card-header">
+              <span className="card-number">02</span>
+              <h2 className="card-title">{t.howWeWork}</h2>
+            </div>
+            <div className="services-grid">
+              <div className="service-item">
                 <h3>{t.publicAdmin.split('\n')[0]}</h3>
                 <p>{t.publicAdminDesc}</p>
               </div>
-              <div
-                className={`card ${visibleCards.has('service-2') ? 'visible' : ''}`}
-                data-card="service-2"
-                style={{ '--card-delay': '100ms' } as React.CSSProperties}
-              >
+              <div className="service-item">
                 <h3>{t.euConsortium.split('\n')[0]}</h3>
                 <p>{t.euConsortiumDesc}</p>
               </div>
-              <div
-                className={`card ${visibleCards.has('service-3') ? 'visible' : ''}`}
-                data-card="service-3"
-                style={{ '--card-delay': '200ms' } as React.CSSProperties}
-              >
+              <div className="service-item">
                 <h3>{t.corporatePartnerships.split('\n')[0]}</h3>
                 <p>{t.corporateDesc}</p>
               </div>
@@ -122,43 +101,27 @@ function App() {
           </div>
         </section>
 
-        {/* Track Record */}
-        <section className="content-section">
-          <div className="section-header">
-            <span className="section-number">03</span>
-            <h2 className="section-title">{t.trackRecord}</h2>
-          </div>
-          <div className="section-container">
+        {/* Stats section */}
+        <section className="content-card" data-card="stats">
+          <div className="card-content">
+            <div className="card-header">
+              <span className="card-number">03</span>
+              <h2 className="card-title">{t.trackRecord}</h2>
+            </div>
             <div className="stats-grid">
-              <div
-                className={`stat-card ${visibleCards.has('stat-1') ? 'visible' : ''}`}
-                data-card="stat-1"
-                style={{ '--card-delay': '0ms' } as React.CSSProperties}
-              >
+              <div className="stat-item">
                 <div className="stat-number">100+</div>
                 <p>{t.projects}</p>
               </div>
-              <div
-                className={`stat-card ${visibleCards.has('stat-2') ? 'visible' : ''}`}
-                data-card="stat-2"
-                style={{ '--card-delay': '100ms' } as React.CSSProperties}
-              >
+              <div className="stat-item">
                 <div className="stat-number">3</div>
                 <p>{t.decisionLevels}</p>
               </div>
-              <div
-                className={`stat-card ${visibleCards.has('stat-3') ? 'visible' : ''}`}
-                data-card="stat-3"
-                style={{ '--card-delay': '200ms' } as React.CSSProperties}
-              >
+              <div className="stat-item">
                 <div className="stat-number">10</div>
                 <p>{t.japaneseOrgs}</p>
               </div>
-              <div
-                className={`stat-card ${visibleCards.has('stat-4') ? 'visible' : ''}`}
-                data-card="stat-4"
-                style={{ '--card-delay': '300ms' } as React.CSSProperties}
-              >
+              <div className="stat-item">
                 <div className="stat-number">2025</div>
                 <p>{t.expoRepresentation}</p>
               </div>
@@ -166,12 +129,9 @@ function App() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="content-section cta-section">
-          <div
-            className={`card card-cta ${visibleCards.has('cta') ? 'visible' : ''}`}
-            data-card="cta"
-          >
+        {/* CTA section */}
+        <section className="content-card cta-card" data-card="cta">
+          <div className="card-content">
             <h2>{t.readyToTransform}</h2>
             <p>{t.ctaSubtitle}</p>
             <div className="btn-group">
@@ -180,22 +140,17 @@ function App() {
             </div>
           </div>
         </section>
-      </div>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-info">
+        {/* Footer */}
+        <footer className="footer-card">
+          <div className="footer-content">
             <h3>Urban Innovation Institute</h3>
             <p>{t.bucharest}</p>
-          </div>
-          <div className="footer-links">
             <a href="mailto:contact@urbaninnovationinstitute.ro">{t.contact}</a>
-            <a href="#">urbaninnovationinstitute.ro</a>
           </div>
-        </div>
-      </footer>
-    </>
+        </footer>
+      </div>
+    </div>
   )
 }
 

@@ -10,9 +10,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Load from localStorage or default to 'en'
+    // Load from localStorage or default to 'ro' (Romanian)
     const saved = localStorage.getItem('uii-language')
-    return (saved as Language) || 'en'
+    return (saved as Language) || 'ro'
   })
 
   const setLanguage = (lang: Language) => {

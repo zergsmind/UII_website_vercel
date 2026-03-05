@@ -15,19 +15,26 @@ export function UrbanScene() {
 
     // Scene setup
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0x00000000) // Transparent
+    scene.background = null // Transparent background
     sceneRef.current = scene
 
+    // Get container dimensions
+    const width = containerRef.current.clientWidth || window.innerWidth
+    const height = containerRef.current.clientHeight || window.innerHeight
+
     // Camera
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
     camera.position.z = 5
     cameraRef.current = camera
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(width, height)
     renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setClearColor(0x000000, 0)
+    renderer.domElement.style.position = 'absolute'
+    renderer.domElement.style.top = '0'
+    renderer.domElement.style.left = '0'
     containerRef.current.appendChild(renderer.domElement)
     rendererRef.current = renderer
 
@@ -162,8 +169,8 @@ export function UrbanScene() {
 
     // Handle window resize
     const onWindowResize = () => {
-      const width = window.innerWidth
-      const height = window.innerHeight
+      const width = containerRef.current?.clientWidth || window.innerWidth
+      const height = containerRef.current?.clientHeight || window.innerHeight
       camera.aspect = width / height
       camera.updateProjectionMatrix()
       renderer.setSize(width, height)
