@@ -46,15 +46,15 @@ export function UrbanScene() {
     directionalLight.position.set(5, 10, 7)
     scene.add(directionalLight)
 
-    // Create urban geometric shapes - 60/30/10 color scheme
-    // 60% Dominant: Light blue-tinted white, 30% Secondary: Teal/blue, 10% Accent: Coral
+    // Create urban geometric shapes - 60/30/10 color scheme (Green palette)
+    // 60% Dominant: Light green-tinted white, 30% Secondary: Sage/green, 10% Accent: Warm peach
     const colors = [
-      0xf5f8fc, // 60% - Dominant light blue-white
-      0xf5f8fc, // 60% - Dominant light blue-white
-      0xf5f8fc, // 60% - Dominant light blue-white
-      0x7ba3b8, // 30% - Secondary light blue
-      0x5b8a9e, // 30% - Secondary teal
-      0xe8956f, // 10% - Accent coral
+      0xf5fbf7, // 60% - Dominant light green-white
+      0xf5fbf7, // 60% - Dominant light green-white
+      0xf5fbf7, // 60% - Dominant light green-white
+      0x8ba89f, // 30% - Secondary light sage green
+      0x6b8e7f, // 30% - Secondary sage green
+      0xe8a66f, // 10% - Accent warm peach
     ]
 
     const shapes: THREE.Mesh[] = []
@@ -147,7 +147,7 @@ export function UrbanScene() {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0xe8956f,  // Accent coral from 60/30/10 scheme
+      color: 0xe8a66f,  // Accent warm peach from 60/30/10 scheme
       size: 0.1,
       sizeAttenuation: true,
       transparent: true,

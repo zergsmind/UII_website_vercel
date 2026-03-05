@@ -7,51 +7,51 @@
 }
 
 :root {
-  /* 60/30/10 Color System */
-  /* 60% - Dominant: Light blue-tinted white (base for all backgrounds) */
-  --color-dominant: #F5F8FC;
+  /* 60/30/10 Color System - Green Palette */
+  /* 60% - Dominant: Light green-tinted white (base for all backgrounds) */
+  --color-dominant: #F5FBF7;
   --color-dominant-warm: #FBF7F5;
-  --color-dominant-cool: #F3F8FC;
+  --color-dominant-cool: #F7FBF5;
 
-  /* 30% - Secondary: Muted teal/blue */
-  --color-secondary: #5B8A9E;
-  --color-secondary-light: #7BA3B8;
-  --color-secondary-muted: #4A7A8E;
+  /* 30% - Secondary: Muted sage/forest green */
+  --color-secondary: #6B8E7F;
+  --color-secondary-light: #8BA89F;
+  --color-secondary-muted: #5B7E6F;
 
-  /* 10% - Accent: Warm coral/amber */
-  --color-accent: #E8956F;
-  --color-accent-light: #F0A878;
-  --color-accent-dark: #D97C52;
+  /* 10% - Accent: Warm peach/coral */
+  --color-accent: #E8A66F;
+  --color-accent-light: #F0B578;
+  --color-accent-dark: #D9915A;
 
   /* Legacy aliases for compatibility */
-  --sage-light: #F5F8FC;
-  --sage-muted: #7BA3B8;
-  --sage-dark: #5B8A9E;
+  --sage-light: #F5FBF7;
+  --sage-muted: #8BA89F;
+  --sage-dark: #6B8E7F;
 
-  --lavender-light: #F3F8FC;
-  --lavender-muted: #7BA3B8;
-  --lavender-dark: #5B8A9E;
+  --lavender-light: #F7FBF5;
+  --lavender-muted: #8BA89F;
+  --lavender-dark: #6B8E7F;
 
   --peach-light: #FBF7F5;
-  --peach-muted: #E8956F;
-  --peach-dark: #D97C52;
+  --peach-muted: #E8A66F;
+  --peach-dark: #D9915A;
 
-  --blue-light: #F5F8FC;
-  --blue-muted: #7BA3B8;
-  --blue-dark: #5B8A9E;
+  --blue-light: #F5FBF7;
+  --blue-muted: #8BA89F;
+  --blue-dark: #6B8E7F;
 
-  --gold-muted: #E8956F;
-  --rose-muted: #E8956F;
+  --gold-muted: #E8A66F;
+  --rose-muted: #E8A66F;
 
   /* Text Colors */
-  --text-dark: #2C3E4A;
-  --text-mid: #556B7A;
-  --text-light: #8A9BA8;
+  --text-dark: #2C3E34;
+  --text-mid: #556B5F;
+  --text-light: #8A9B8E;
 
   /* Background */
-  --bg-primary: #F5F8FC;
-  --bg-secondary: #F3F6FA;
-  --bg-tertiary: #EDF2F8;
+  --bg-primary: #F5FBF7;
+  --bg-secondary: #F3F9F6;
+  --bg-tertiary: #EDF8F2;
 
   /* Spacing */
   --padding-sm: 12px;
