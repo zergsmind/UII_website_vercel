@@ -92,6 +92,22 @@ p {
   z-index: 1;
 }
 
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom,
+    rgba(212, 223, 208, 0) 0%,
+    rgba(212, 223, 208, 0.1) 30%,
+    rgba(232, 217, 240, 0.2) 60%,
+    rgba(239, 240, 237, 0.4) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .hero-content {
   max-width: 900px;
   margin: 0 auto;
@@ -234,54 +250,78 @@ p {
   font-weight: 500;
 }
 
+/* ========== SECTION CONTAINER ========== */
+.section-container {
+  background: linear-gradient(135deg, rgba(184, 197, 176, 0.2) 0%, rgba(232, 217, 240, 0.2) 100%);
+  padding: var(--padding-xl);
+  border-radius: 16px;
+  border: 1px solid rgba(139, 153, 133, 0.1);
+  animation: slideUpReveal 0.6s ease-out forwards;
+}
+
 /* ========== CARDS GRID (Services) ========== */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--padding-lg);
-  margin-top: var(--padding-lg);
+  margin-top: 0;
 }
 
 .cards-grid .card {
-  background: linear-gradient(135deg, var(--peach-light) 0%, var(--blue-light) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   padding: var(--padding-lg);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpReveal 0.6s ease-out forwards;
 }
 
 .cards-grid .card:nth-child(1) {
   animation-delay: 0s;
-  background: linear-gradient(135deg, var(--peach-light) 0%, var(--gold-muted) 100%);
 }
 
 .cards-grid .card:nth-child(2) {
   animation-delay: 100ms;
-  background: linear-gradient(135deg, var(--lavender-light) 0%, var(--blue-light) 100%);
 }
 
 .cards-grid .card:nth-child(3) {
   animation-delay: 200ms;
-  background: linear-gradient(135deg, var(--sage-light) 0%, var(--rose-muted) 100%);
 }
 
 .cards-grid h3 {
   color: var(--text-dark);
 }
 
-/* ========== SECTION TITLE ========== */
-.section-title {
-  text-align: center;
-  color: var(--text-dark);
+/* ========== SECTION HEADER ========== */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--padding-md);
   margin-bottom: var(--padding-lg);
+}
+
+.section-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sage-dark);
+  opacity: 0.5;
+  min-width: 60px;
+}
+
+.section-title {
+  color: var(--text-dark);
+  margin: 0;
   position: relative;
-  padding-bottom: var(--padding-md);
+  padding-bottom: var(--padding-sm);
+  flex: 1;
 }
 
 .section-title::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
+  left: 0;
+  width: 100px;
   height: 2px;
   background: linear-gradient(90deg, var(--sage-dark), var(--lavender-dark));
 }
@@ -291,11 +331,11 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--padding-lg);
-  margin-top: var(--padding-lg);
+  margin-top: 0;
 }
 
 .stat-card {
-  background: linear-gradient(135deg, var(--blue-light) 0%, var(--peach-light) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   padding: var(--padding-lg);
   border-radius: 16px;
   text-align: center;
@@ -307,22 +347,18 @@ p {
 
 .stat-card:nth-child(1) {
   animation-delay: 0s;
-  background: linear-gradient(135deg, var(--blue-light) 0%, var(--sage-light) 100%);
 }
 
 .stat-card:nth-child(2) {
   animation-delay: 100ms;
-  background: linear-gradient(135deg, var(--peach-light) 0%, var(--blue-light) 100%);
 }
 
 .stat-card:nth-child(3) {
   animation-delay: 200ms;
-  background: linear-gradient(135deg, var(--lavender-light) 0%, var(--peach-light) 100%);
 }
 
 .stat-card:nth-child(4) {
   animation-delay: 300ms;
-  background: linear-gradient(135deg, var(--gold-muted) 0%, var(--rose-muted) 100%);
 }
 
 .stat-card.visible {
@@ -429,6 +465,27 @@ p {
   .hero {
     min-height: 70vh;
     padding: var(--padding-lg) var(--padding-md);
+  }
+
+  .hero::after {
+    height: 80px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: var(--padding-sm);
+  }
+
+  .section-number {
+    font-size: 1.5rem;
+  }
+
+  .section-title::after {
+    width: 60px;
+  }
+
+  .section-container {
+    padding: var(--padding-lg);
   }
 
   .card-large {

@@ -86,70 +86,80 @@ function App() {
 
         {/* How We Work */}
         <section className="content-section">
-          <h2 className="section-title">{t.howWeWork}</h2>
-          <div className="cards-grid">
-            <div
-              className={`card ${visibleCards.has('service-1') ? 'visible' : ''}`}
-              data-card="service-1"
-              style={{ '--card-delay': '0ms' } as React.CSSProperties}
-            >
-              <h3>{t.publicAdmin.split('\n')[0]}</h3>
-              <p>{t.publicAdminDesc}</p>
-            </div>
-            <div
-              className={`card ${visibleCards.has('service-2') ? 'visible' : ''}`}
-              data-card="service-2"
-              style={{ '--card-delay': '100ms' } as React.CSSProperties}
-            >
-              <h3>{t.euConsortium.split('\n')[0]}</h3>
-              <p>{t.euConsortiumDesc}</p>
-            </div>
-            <div
-              className={`card ${visibleCards.has('service-3') ? 'visible' : ''}`}
-              data-card="service-3"
-              style={{ '--card-delay': '200ms' } as React.CSSProperties}
-            >
-              <h3>{t.corporatePartnerships.split('\n')[0]}</h3>
-              <p>{t.corporateDesc}</p>
+          <div className="section-header">
+            <span className="section-number">02</span>
+            <h2 className="section-title">{t.howWeWork}</h2>
+          </div>
+          <div className="section-container">
+            <div className="cards-grid">
+              <div
+                className={`card ${visibleCards.has('service-1') ? 'visible' : ''}`}
+                data-card="service-1"
+                style={{ '--card-delay': '0ms' } as React.CSSProperties}
+              >
+                <h3>{t.publicAdmin.split('\n')[0]}</h3>
+                <p>{t.publicAdminDesc}</p>
+              </div>
+              <div
+                className={`card ${visibleCards.has('service-2') ? 'visible' : ''}`}
+                data-card="service-2"
+                style={{ '--card-delay': '100ms' } as React.CSSProperties}
+              >
+                <h3>{t.euConsortium.split('\n')[0]}</h3>
+                <p>{t.euConsortiumDesc}</p>
+              </div>
+              <div
+                className={`card ${visibleCards.has('service-3') ? 'visible' : ''}`}
+                data-card="service-3"
+                style={{ '--card-delay': '200ms' } as React.CSSProperties}
+              >
+                <h3>{t.corporatePartnerships.split('\n')[0]}</h3>
+                <p>{t.corporateDesc}</p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Track Record */}
         <section className="content-section">
-          <h2 className="section-title">{t.trackRecord}</h2>
-          <div className="stats-grid">
-            <div
-              className={`stat-card ${visibleCards.has('stat-1') ? 'visible' : ''}`}
-              data-card="stat-1"
-              style={{ '--card-delay': '0ms' } as React.CSSProperties}
-            >
-              <div className="stat-number">100+</div>
-              <p>{t.projects}</p>
-            </div>
-            <div
-              className={`stat-card ${visibleCards.has('stat-2') ? 'visible' : ''}`}
-              data-card="stat-2"
-              style={{ '--card-delay': '100ms' } as React.CSSProperties}
-            >
-              <div className="stat-number">3</div>
-              <p>{t.decisionLevels}</p>
-            </div>
-            <div
-              className={`stat-card ${visibleCards.has('stat-3') ? 'visible' : ''}`}
-              data-card="stat-3"
-              style={{ '--card-delay': '200ms' } as React.CSSProperties}
-            >
-              <div className="stat-number">10</div>
-              <p>{t.japaneseOrgs}</p>
-            </div>
-            <div
-              className={`stat-card ${visibleCards.has('stat-4') ? 'visible' : ''}`}
-              data-card="stat-4"
-              style={{ '--card-delay': '300ms' } as React.CSSProperties}
-            >
-              <div className="stat-number">2025</div>
-              <p>{t.expoRepresentation}</p>
+          <div className="section-header">
+            <span className="section-number">03</span>
+            <h2 className="section-title">{t.trackRecord}</h2>
+          </div>
+          <div className="section-container">
+            <div className="stats-grid">
+              <div
+                className={`stat-card ${visibleCards.has('stat-1') ? 'visible' : ''}`}
+                data-card="stat-1"
+                style={{ '--card-delay': '0ms' } as React.CSSProperties}
+              >
+                <div className="stat-number">100+</div>
+                <p>{t.projects}</p>
+              </div>
+              <div
+                className={`stat-card ${visibleCards.has('stat-2') ? 'visible' : ''}`}
+                data-card="stat-2"
+                style={{ '--card-delay': '100ms' } as React.CSSProperties}
+              >
+                <div className="stat-number">3</div>
+                <p>{t.decisionLevels}</p>
+              </div>
+              <div
+                className={`stat-card ${visibleCards.has('stat-3') ? 'visible' : ''}`}
+                data-card="stat-3"
+                style={{ '--card-delay': '200ms' } as React.CSSProperties}
+              >
+                <div className="stat-number">10</div>
+                <p>{t.japaneseOrgs}</p>
+              </div>
+              <div
+                className={`stat-card ${visibleCards.has('stat-4') ? 'visible' : ''}`}
+                data-card="stat-4"
+                style={{ '--card-delay': '300ms' } as React.CSSProperties}
+              >
+                <div className="stat-number">2025</div>
+                <p>{t.expoRepresentation}</p>
+              </div>
             </div>
           </div>
         </section>
